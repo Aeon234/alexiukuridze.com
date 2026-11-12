@@ -5,6 +5,8 @@ import tailwindcss from "@tailwindcss/vite";
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://alexiukuridze.com",
+  trailingSlash: "always",
   fonts: [
     {
       provider: fontProviders.google(),
