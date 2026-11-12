@@ -37,3 +37,116 @@
   /* Custom pairs */
   --spacing-s-l: clamp(1rem, 0.3864rem + 2.7273vw, 2.5rem);
 }
+
+@theme static {
+  --color-*: initial;
+
+  --color-bg: light-dark(oklch(97.6% 0.003 106.4), oklch(20.5% 0.006 271.1));
+  --color-fg: light-dark(oklch(21% 0.008 274.5), oklch(93.7% 0.008 91.5));
+  --color-muted: light-dark(oklch(53.9% 0.011 273.2), oklch(66% 0.011 267.3));
+  --color-line: light-dark(oklch(91.2% 0.007 295.4), oklch(31% 0.011 271));
+  --color-card: light-dark(oklch(100% 0 0), oklch(25.7% 0.008 274.7));
+  --color-card-hover: light-dark(
+    oklch(95.4% 0.004 106.5),
+    oklch(29.3% 0.01 268.3)
+  );
+  --color-gold: oklch(84.9% 0.137 82);
+  --color-accent: light-dark(oklch(45.4% 0.161 262), oklch(84.9% 0.137 82));
+  --color-ink: oklch(21.9% 0.025 266.9);
+  --color-sky-top: light-dark(
+    oklch(81.4% 0.069 243.4),
+    oklch(19.2% 0.035 261.3)
+  );
+  --color-sky-bottom: light-dark(
+    oklch(94.5% 0.018 234.5),
+    oklch(31.2% 0.048 253.9)
+  );
+  --color-hill-back: light-dark(
+    oklch(85.4% 0.039 239.7),
+    oklch(31.9% 0.042 250.5)
+  );
+  --color-hill-middle: light-dark(
+    oklch(78.1% 0.05 243.8),
+    oklch(26.4% 0.036 252.4)
+  );
+}
+
+@property --color-bg {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(97.6% 0.003 106.4);
+}
+
+@property --color-fg {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(21% 0.008 274.5);
+}
+
+@property --color-muted {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(53.9% 0.011 273.2);
+}
+
+@property --color-line {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(91.2% 0.007 295.4);
+}
+
+@property --color-card {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(100% 0 0);
+}
+
+@property --color-card-hover {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(95.4% 0.004 106.5);
+}
+
+@property --color-accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(45.4% 0.161 262);
+}
+
+@property --color-sky-top {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(81.4% 0.069 243.4);
+}
+
+@property --color-sky-bottom {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(94.5% 0.018 234.5);
+}
+
+@property --color-hill-back {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(85.4% 0.039 239.7);
+}
+
+@property --color-hill-middle {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: oklch(78.1% 0.05 243.8);
+}
+
+@layer base {
+  :root {
+    color-scheme: light dark;
+  }
+
+  :root[data-theme="light"] {
+    color-scheme: light;
+  }
+
+  :root[data-theme="dark"] {
+    color-scheme: dark;
+  }
+}
