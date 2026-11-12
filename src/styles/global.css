@@ -3,6 +3,13 @@
 @theme {
   --text-*: initial;
   --spacing: initial;
+  --font-*: initial;
+
+  --font-display: var(--font-fraunces);
+  --font-body: var(--font-geist);
+  --font-mono: var(--font-jetbrains-mono);
+  --default-font-family: var(--font-body);
+  --default-mono-font-family: var(--font-mono);
 
   /* @link https://utopia.fyi/type/calculator?c=360,16,1.2,1240,20,1.25,5,1,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
   --text-step--1: clamp(0.8333rem, 0.7652rem + 0.303vw, 1rem);

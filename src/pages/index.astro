@@ -1,4 +1,5 @@
 ---
+import { Font } from "astro:assets";
 import "../styles/global.css";
 ---
 
@@ -7,6 +8,9 @@ import "../styles/global.css";
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>Alex Iukuridze</title>
+    <Font cssVariable="--font-fraunces" preload={[{ style: "normal" }]} />
+    <Font cssVariable="--font-geist" preload={[{ style: "normal" }]} />
+    <Font cssVariable="--font-jetbrains-mono" />
   </head>
   <body>
     <h1>Alex Iukuridze</h1>
