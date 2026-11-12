@@ -1,1 +1,39 @@
 @import "tailwindcss";
+
+@theme {
+  --text-*: initial;
+  --spacing: initial;
+
+  /* @link https://utopia.fyi/type/calculator?c=360,16,1.2,1240,20,1.25,5,1,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+  --text-step--1: clamp(0.8333rem, 0.7652rem + 0.303vw, 1rem);
+  --text-step-0: clamp(1rem, 0.8977rem + 0.4545vw, 1.25rem);
+  --text-step-1: clamp(1.2rem, 1.0517rem + 0.6591vw, 1.5625rem);
+  --text-step-2: clamp(1.44rem, 1.2301rem + 0.933vw, 1.9531rem);
+  --text-step-3: clamp(1.728rem, 1.4362rem + 1.2971vw, 2.4414rem);
+  --text-step-4: clamp(2.0736rem, 1.6734rem + 1.7785vw, 3.0518rem);
+  --text-step-5: clamp(2.4883rem, 1.9457rem + 2.4116vw, 3.8147rem);
+
+  /* @link https://utopia.fyi/space/calculator?c=360,16,1.2,1240,20,1.25,5,1,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l&g=s,l,xl,12 */
+  --spacing-3xs: clamp(0.25rem, 0.2244rem + 0.1136vw, 0.3125rem);
+  --spacing-2xs: clamp(0.5rem, 0.4489rem + 0.2273vw, 0.625rem);
+  --spacing-xs: clamp(0.75rem, 0.6733rem + 0.3409vw, 0.9375rem);
+  --spacing-s: clamp(1rem, 0.8977rem + 0.4545vw, 1.25rem);
+  --spacing-m: clamp(1.5rem, 1.3466rem + 0.6818vw, 1.875rem);
+  --spacing-l: clamp(2rem, 1.7955rem + 0.9091vw, 2.5rem);
+  --spacing-xl: clamp(3rem, 2.6932rem + 1.3636vw, 3.75rem);
+  --spacing-2xl: clamp(4rem, 3.5909rem + 1.8182vw, 5rem);
+  --spacing-3xl: clamp(6rem, 5.3864rem + 2.7273vw, 7.5rem);
+
+  /* One-up pairs */
+  --spacing-3xs-2xs: clamp(0.25rem, 0.0966rem + 0.6818vw, 0.625rem);
+  --spacing-2xs-xs: clamp(0.5rem, 0.321rem + 0.7955vw, 0.9375rem);
+  --spacing-xs-s: clamp(0.75rem, 0.5455rem + 0.9091vw, 1.25rem);
+  --spacing-s-m: clamp(1rem, 0.642rem + 1.5909vw, 1.875rem);
+  --spacing-m-l: clamp(1.5rem, 1.0909rem + 1.8182vw, 2.5rem);
+  --spacing-l-xl: clamp(2rem, 1.2841rem + 3.1818vw, 3.75rem);
+  --spacing-xl-2xl: clamp(3rem, 2.1818rem + 3.6364vw, 5rem);
+  --spacing-2xl-3xl: clamp(4rem, 2.5682rem + 6.3636vw, 7.5rem);
+
+  /* Custom pairs */
+  --spacing-s-l: clamp(1rem, 0.3864rem + 2.7273vw, 2.5rem);
+}
