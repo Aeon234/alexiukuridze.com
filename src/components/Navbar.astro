@@ -1,5 +1,6 @@
 ---
 import Button from "./Button.astro";
+import MenuPanel from "./MenuPanel.astro";
 
 const pages = [
   { href: "/", label: "Home", icon: "house" },
@@ -11,6 +12,7 @@ const pages = [
 const path = Astro.url.pathname;
 const isCurrent = (href: string) =>
   href === "/" ? path === "/" : path.startsWith(href);
+const links = pages.map((page) => ({ ...page, current: isCurrent(page.href) }));
 ---
 
 <header class="mx-auto flex max-w-page items-center gap-[4px] px-s-l py-s">
@@ -18,14 +20,25 @@ const isCurrent = (href: string) =>
     Alex Iukuridze
   </a>
   <nav aria-label="Main" class="flex max-md:hidden">
-    {pages.map((page) => (
+    {links.map((link) => (
       <Button
         kind="ghost"
-        href={page.href}
-        icon={page.icon}
-        label={page.label}
-        aria-current={isCurrent(page.href) ? "page" : undefined}
+        href={link.href}
+        icon={link.icon}
+        label={link.label}
+        aria-current={link.current ? "page" : undefined}
       />
     ))}
   </nav>
+  <Button
+    kind="ghost"
+    icon="menu"
+    iconOnly
+    label="Open Menu"
+    aria-controls="menu"
+    aria-expanded="false"
+    aria-haspopup="dialog"
+    class="md:hidden"
+  />
+  <MenuPanel links={links} />
 </header>

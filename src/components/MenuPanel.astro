@@ -1,0 +1,156 @@
+---
+import type { ComponentProps } from "astro/types";
+import Button from "./Button.astro";
+import Icon from "./Icon.astro";
+
+interface Props {
+  links: {
+    href: string;
+    label: string;
+    icon: ComponentProps<typeof Icon>["name"];
+    current: boolean;
+  }[];
+}
+
+const { links } = Astro.props;
+---
+
+<dialog
+  id="menu"
+  aria-label="Menu"
+  class="fixed inset-0 m-0 size-full max-h-none max-w-none bg-bg/94 text-fg backdrop-blur-[10px] backdrop:bg-transparent"
+>
+  <div class="mx-auto flex max-w-page items-center gap-[4px] px-s-l py-s">
+    <a href="/" class="mr-auto font-display text-step-1 font-medium">
+      Alex Iukuridze
+    </a>
+    <Button kind="ghost" icon="x" iconOnly label="Close Menu" data-close />
+  </div>
+  <nav aria-label="Main" class="grid px-s-l py-s">
+    {links.map((link, index) => (
+      <a
+        href={link.href}
+        aria-current={link.current ? "page" : undefined}
+        autofocus={index === 0}
+        style={`--i: ${index}`}
+        class="flex min-h-[60px] items-center gap-[16px] border-b border-line font-display text-step-2 hover:text-accent"
+      >
+        <Icon name={link.icon} size={22} />
+        {link.label}
+      </a>
+    ))}
+  </nav>
+</dialog>
+
+<style>
+  dialog :global(.icon) {
+    color: var(--color-muted);
+  }
+
+  dialog [aria-current="page"] :global(.icon) {
+    color: var(--color-accent);
+  }
+
+  :global(html:has(#menu[open])) {
+    overflow: hidden;
+  }
+
+  /* Opens as a circle grown from the menu button (--origin, set by the script) while the links rise in
+     turn; closes by shrinking back into the button. */
+  @media (prefers-reduced-motion: no-preference) {
+    dialog[open] {
+      animation: menu-open 420ms cubic-bezier(0.55, 0, 0.2, 1);
+    }
+
+    dialog[open] nav a {
+      animation: menu-link 833ms calc(170ms + var(--i) * 40ms)
+        var(--ease-spring) both;
+    }
+
+    dialog.closing {
+      animation: menu-close 260ms cubic-bezier(0.55, 0, 0.6, 1) forwards;
+    }
+
+    dialog.closing nav a {
+      animation: none;
+    }
+  }
+
+  @keyframes menu-open {
+    from {
+      clip-path: circle(0 at var(--origin));
+    }
+    to {
+      clip-path: circle(142% at var(--origin));
+    }
+  }
+
+  @keyframes menu-close {
+    from {
+      clip-path: circle(142% at var(--origin));
+    }
+    to {
+      clip-path: circle(0 at var(--origin));
+    }
+  }
+
+  @keyframes menu-link {
+    from {
+      opacity: 0;
+      translate: 0 14px;
+    }
+  }
+</style>
+
+<script>
+  const menu = document.querySelector<HTMLDialogElement>("#menu");
+  const opener = document.querySelector<HTMLButtonElement>(
+    '[aria-controls="menu"]',
+  );
+
+  if (menu && opener) {
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)");
+
+    const close = () => {
+      if (!menu.open || menu.classList.contains("closing")) return;
+      if (reduced.matches) {
+        menu.close();
+        return;
+      }
+      menu.classList.add("closing");
+    };
+
+    opener.addEventListener("click", () => {
+      const box = opener.getBoundingClientRect();
+      menu.style.setProperty(
+        "--origin",
+        `${box.left + box.width / 2}px ${box.top + box.height / 2}px`,
+      );
+      menu.showModal();
+      opener.setAttribute("aria-expanded", "true");
+    });
+
+    menu.addEventListener("animationend", (event) => {
+      if (event.target === menu && menu.classList.contains("closing")) {
+        menu.classList.remove("closing");
+        menu.close();
+      }
+    });
+
+    menu.addEventListener("cancel", (event) => {
+      event.preventDefault();
+      close();
+    });
+
+    menu.addEventListener("close", () => {
+      opener.setAttribute("aria-expanded", "false");
+    });
+
+    menu.querySelector("[data-close]")?.addEventListener("click", close);
+
+    // A page restored from the back-forward cache keeps the dialog open.
+    addEventListener("pageshow", (event) => {
+      if (event.persisted && menu.open) menu.close();
+    });
+  }
+</script>
