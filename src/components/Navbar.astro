@@ -1,0 +1,31 @@
+---
+import Button from "./Button.astro";
+
+const pages = [
+  { href: "/", label: "Home", icon: "house" },
+  { href: "/projects/", label: "Projects", icon: "folder-open" },
+  { href: "/blog/", label: "Blog", icon: "pen-line" },
+  { href: "/films-and-books/", label: "Films and Books", icon: "clapperboard" },
+] as const;
+
+const path = Astro.url.pathname;
+const isCurrent = (href: string) =>
+  href === "/" ? path === "/" : path.startsWith(href);
+---
+
+<header class="mx-auto flex max-w-page items-center gap-[4px] px-s-l py-s">
+  <a href="/" class="mr-auto font-display text-step-1 font-medium">
+    Alex Iukuridze
+  </a>
+  <nav aria-label="Main" class="flex max-md:hidden">
+    {pages.map((page) => (
+      <Button
+        kind="ghost"
+        href={page.href}
+        icon={page.icon}
+        label={page.label}
+        aria-current={isCurrent(page.href) ? "page" : undefined}
+      />
+    ))}
+  </nav>
+</header>

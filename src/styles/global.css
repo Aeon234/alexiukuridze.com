@@ -11,6 +11,8 @@
   --default-font-family: var(--font-body);
   --default-mono-font-family: var(--font-mono);
 
+  --container-page: 72rem;
+
   --radius-*: initial;
   --radius-button: 10px;
   --radius-ghost: 8px;
