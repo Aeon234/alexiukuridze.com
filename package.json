@@ -17,6 +17,7 @@
     "format:check": "prettier --check . --ignore-path .gitignore --ignore-path .prettierignore --ignore-path .git/info/exclude"
   },
   "dependencies": {
+    "@lucide/astro": "^1.72.0",
     "@tailwindcss/vite": "^4.3.5",
     "astro": "^7.4.8",
     "tailwindcss": "^4.3.5"

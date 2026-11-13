@@ -1,0 +1,516 @@
+---
+import ArrowLeft from "@lucide/astro/icons/arrow-left";
+import ArrowRight from "@lucide/astro/icons/arrow-right";
+import ChevronRight from "@lucide/astro/icons/chevron-right";
+import Clapperboard from "@lucide/astro/icons/clapperboard";
+import Code from "@lucide/astro/icons/code";
+import Copy from "@lucide/astro/icons/copy";
+import ExternalLink from "@lucide/astro/icons/external-link";
+import FileText from "@lucide/astro/icons/file-text";
+import FolderOpen from "@lucide/astro/icons/folder-open";
+import House from "@lucide/astro/icons/house";
+import Info from "@lucide/astro/icons/info";
+import LayoutGrid from "@lucide/astro/icons/layout-grid";
+import LayoutList from "@lucide/astro/icons/layout-list";
+import Lightbulb from "@lucide/astro/icons/lightbulb";
+import List from "@lucide/astro/icons/list";
+import Mail from "@lucide/astro/icons/mail";
+import Menu from "@lucide/astro/icons/menu";
+import PenLine from "@lucide/astro/icons/pen-line";
+import SquareUser from "@lucide/astro/icons/square-user";
+import Tag from "@lucide/astro/icons/tag";
+import TriangleExclamationPoint from "@lucide/astro/icons/triangle-exclamation-point";
+import X from "@lucide/astro/icons/x";
+
+const icons = {
+  "arrow-left": ArrowLeft,
+  "arrow-right": ArrowRight,
+  "chevron-right": ChevronRight,
+  clapperboard: Clapperboard,
+  code: Code,
+  copy: Copy,
+  "external-link": ExternalLink,
+  "file-text": FileText,
+  "folder-open": FolderOpen,
+  house: House,
+  info: Info,
+  "layout-grid": LayoutGrid,
+  "layout-list": LayoutList,
+  lightbulb: Lightbulb,
+  list: List,
+  mail: Mail,
+  menu: Menu,
+  "pen-line": PenLine,
+  "square-user": SquareUser,
+  tag: Tag,
+  "triangle-exclamation-point": TriangleExclamationPoint,
+  x: X,
+};
+
+interface Props {
+  name: keyof typeof icons;
+  size?: number | string;
+}
+
+const { name, size = 20 } = Astro.props;
+const Svg = icons[name];
+---
+
+<span class="icon" data-icon={name}>
+  <Svg size={size} />
+</span>
+
+<style is:global>
+  .icon {
+    display: inline-flex;
+    flex: none;
+  }
+
+  .icon svg {
+    overflow: visible;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .icon {
+      transition: scale 200ms cubic-bezier(0, 0.67, 0.6, 1.24);
+    }
+
+    :where(a, button):active .icon {
+      scale: 0.88;
+      transition-duration: 0s;
+    }
+
+    /* Hover motions play once as the pointer arrives and end at rest. Child shapes pivot in the
+       24-unit drawing grid; the outer svg pivots in its own box, so its origins are percentages. */
+    :where(a, button):hover .icon {
+      &[data-icon="house"] svg {
+        transform-origin: 50% 87.5%;
+        animation: icon-house 560ms var(--ease-standard);
+      }
+
+      &[data-icon="house"] svg > :nth-child(1) {
+        animation: icon-house-door 560ms var(--ease-standard);
+      }
+
+      &[data-icon="folder-open"] svg {
+        transform-origin: 8.33% 83.33%;
+        animation: icon-folder-open 600ms var(--ease-standard);
+      }
+
+      &[data-icon="pen-line"] svg > :nth-child(1) {
+        transform-origin: 13px 21px;
+        animation: icon-pen-line-line 640ms var(--ease-standard);
+      }
+
+      &[data-icon="pen-line"] svg > :nth-child(2) {
+        transform-origin: 3.5px 20.5px;
+        animation: icon-pen-line-pen 640ms var(--ease-standard);
+      }
+
+      &[data-icon="clapperboard"] svg > :not(:nth-child(3)) {
+        transform-origin: 3px 11px;
+        animation: icon-clapperboard-top 560ms var(--ease-standard);
+      }
+
+      &[data-icon="clapperboard"] svg > :nth-child(3) {
+        animation: icon-clapperboard-board 560ms var(--ease-standard);
+      }
+
+      &[data-icon="menu"] svg > * {
+        transform-origin: 4px 12px;
+        animation: icon-menu 440ms var(--ease-standard) both;
+      }
+
+      &[data-icon="menu"] svg > :nth-child(2) {
+        animation-delay: 70ms;
+      }
+
+      &[data-icon="menu"] svg > :nth-child(3) {
+        animation-delay: 140ms;
+      }
+
+      &[data-icon="x"] svg {
+        animation: icon-x 833ms var(--ease-spring);
+      }
+
+      &[data-icon="file-text"] svg {
+        animation: icon-file-text 520ms var(--ease-standard);
+      }
+
+      &[data-icon="file-text"] svg > :nth-child(n + 3) {
+        transform-origin: 8px 12px;
+        animation: icon-file-text-line 420ms 80ms var(--ease-standard) both;
+      }
+
+      &[data-icon="file-text"] svg > :nth-child(4) {
+        animation-delay: 150ms;
+      }
+
+      &[data-icon="file-text"] svg > :nth-child(5) {
+        animation-delay: 220ms;
+      }
+
+      &[data-icon="mail"] svg {
+        animation: icon-mail 620ms var(--ease-standard);
+      }
+
+      &[data-icon="mail"] svg > :nth-child(1) {
+        transform-origin: 12px 7px;
+        animation: icon-mail-flap 620ms var(--ease-standard);
+      }
+
+      &[data-icon="code"] svg > :nth-child(1) {
+        animation: icon-code-right 520ms var(--ease-standard);
+      }
+
+      &[data-icon="code"] svg > :nth-child(2) {
+        animation: icon-code-left 520ms var(--ease-standard);
+      }
+
+      &[data-icon="square-user"] svg > :nth-child(2) {
+        animation: icon-square-user-head 560ms var(--ease-standard);
+      }
+
+      &[data-icon="square-user"] svg > :nth-child(3) {
+        animation: icon-square-user-body 560ms 60ms var(--ease-standard) both;
+      }
+
+      &[data-icon="arrow-right"] svg {
+        animation: icon-arrow-right 520ms var(--ease-standard);
+      }
+
+      &[data-icon="arrow-left"] svg {
+        animation: icon-arrow-left 520ms var(--ease-standard);
+      }
+
+      &[data-icon="tag"] svg {
+        transform-origin: 31.25% 31.25%;
+        animation: icon-tag 760ms var(--ease-standard);
+      }
+
+      &[data-icon="copy"] svg > :nth-child(2) {
+        animation: icon-copy 520ms var(--ease-standard);
+      }
+
+      &[data-icon="layout-grid"] svg > * {
+        animation: icon-layout-grid 440ms var(--ease-standard) both;
+      }
+
+      &[data-icon="layout-grid"] svg > :nth-child(1) {
+        --to: -2px -2px;
+      }
+
+      &[data-icon="layout-grid"] svg > :nth-child(2) {
+        --to: 2px -2px;
+        animation-delay: 50ms;
+      }
+
+      &[data-icon="layout-grid"] svg > :nth-child(3) {
+        --to: 2px 2px;
+        animation-delay: 100ms;
+      }
+
+      &[data-icon="layout-grid"] svg > :nth-child(4) {
+        --to: -2px 2px;
+        animation-delay: 150ms;
+      }
+
+      &[data-icon="layout-list"] svg > :nth-child(n + 3) {
+        transform-origin: 14px 12px;
+        animation: icon-layout-list 420ms var(--ease-standard) both;
+      }
+
+      &[data-icon="layout-list"] svg > :nth-child(4) {
+        animation-delay: 50ms;
+      }
+
+      &[data-icon="layout-list"] svg > :nth-child(5) {
+        animation-delay: 100ms;
+      }
+
+      &[data-icon="layout-list"] svg > :nth-child(6) {
+        animation-delay: 150ms;
+      }
+
+      &[data-icon="list"] svg > :nth-child(-n + 3) {
+        animation: icon-list 833ms var(--ease-spring) both;
+      }
+
+      &[data-icon="list"] svg > :nth-child(1) {
+        transform-origin: 3px 5px;
+      }
+
+      &[data-icon="list"] svg > :nth-child(2) {
+        transform-origin: 3px 12px;
+        animation-delay: 70ms;
+      }
+
+      &[data-icon="list"] svg > :nth-child(3) {
+        transform-origin: 3px 19px;
+        animation-delay: 140ms;
+      }
+
+      &[data-icon="external-link"] svg > :nth-child(1) {
+        animation: icon-external-link-head 820ms var(--ease-standard);
+      }
+
+      &[data-icon="external-link"] svg > :nth-child(2) {
+        transform-origin: 10px 14px;
+        animation: icon-external-link-shaft 820ms var(--ease-standard);
+      }
+    }
+  }
+
+  @keyframes icon-house {
+    30% {
+      scale: 1.12;
+      rotate: -8deg;
+    }
+    60% {
+      scale: 0.97;
+      rotate: 3deg;
+    }
+  }
+
+  @keyframes icon-house-door {
+    30% {
+      translate: 0 -1.5px;
+    }
+  }
+
+  @keyframes icon-folder-open {
+    30% {
+      rotate: -12deg;
+      scale: 1.08;
+    }
+    60% {
+      rotate: 3deg;
+      scale: 1;
+    }
+    80% {
+      rotate: -1deg;
+    }
+  }
+
+  @keyframes icon-pen-line-pen {
+    25% {
+      rotate: -14deg;
+    }
+    50% {
+      rotate: 8deg;
+    }
+    75% {
+      rotate: -4deg;
+    }
+  }
+
+  @keyframes icon-pen-line-line {
+    0% {
+      scale: 0 1;
+    }
+    70% {
+      scale: 1.1 1;
+    }
+  }
+
+  @keyframes icon-clapperboard-top {
+    35% {
+      rotate: -20deg;
+    }
+    55% {
+      rotate: 2deg;
+    }
+    70% {
+      rotate: -2deg;
+    }
+  }
+
+  @keyframes icon-clapperboard-board {
+    55% {
+      translate: 0 1px;
+    }
+    70% {
+      translate: 0 0;
+    }
+  }
+
+  @keyframes icon-menu {
+    40% {
+      scale: 0.45 1;
+    }
+    75% {
+      scale: 1.08 1;
+    }
+  }
+
+  @keyframes icon-x {
+    50% {
+      scale: 1.18;
+    }
+    100% {
+      rotate: 180deg;
+    }
+  }
+
+  @keyframes icon-file-text {
+    30% {
+      translate: 0 -2.5px;
+    }
+    60% {
+      translate: 0 0.5px;
+    }
+  }
+
+  @keyframes icon-file-text-line {
+    0% {
+      scale: 0 1;
+    }
+  }
+
+  @keyframes icon-mail {
+    35% {
+      translate: 0 -1.5px;
+    }
+  }
+
+  @keyframes icon-mail-flap {
+    35% {
+      scale: 1 -0.7;
+    }
+    70% {
+      scale: 1 1.1;
+    }
+  }
+
+  @keyframes icon-code-right {
+    35% {
+      translate: 3px 0;
+    }
+    70% {
+      translate: -0.6px 0;
+    }
+  }
+
+  @keyframes icon-code-left {
+    35% {
+      translate: -3px 0;
+    }
+    70% {
+      translate: 0.6px 0;
+    }
+  }
+
+  @keyframes icon-square-user-head {
+    30% {
+      translate: 0 -2.5px;
+    }
+    55% {
+      translate: 0 0.6px;
+    }
+  }
+
+  @keyframes icon-square-user-body {
+    35% {
+      translate: 0 -1.2px;
+    }
+  }
+
+  @keyframes icon-arrow-right {
+    35% {
+      translate: 4px 0;
+    }
+    65% {
+      translate: -1px 0;
+    }
+  }
+
+  @keyframes icon-arrow-left {
+    35% {
+      translate: -4px 0;
+    }
+    65% {
+      translate: 1px 0;
+    }
+  }
+
+  @keyframes icon-tag {
+    20% {
+      rotate: -16deg;
+    }
+    45% {
+      rotate: 10deg;
+    }
+    70% {
+      rotate: -5deg;
+    }
+    88% {
+      rotate: 2deg;
+    }
+  }
+
+  @keyframes icon-copy {
+    35% {
+      translate: -2.5px -2.5px;
+    }
+    70% {
+      translate: 0.5px 0.5px;
+    }
+  }
+
+  @keyframes icon-layout-grid {
+    40% {
+      translate: var(--to);
+    }
+    75% {
+      translate: 0 0;
+    }
+  }
+
+  @keyframes icon-layout-list {
+    40% {
+      scale: 0.35 1;
+    }
+    80% {
+      scale: 1.06 1;
+    }
+  }
+
+  @keyframes icon-list {
+    45% {
+      scale: 2.2;
+    }
+  }
+
+  @keyframes icon-external-link-shaft {
+    22% {
+      scale: 1.16;
+    }
+    50% {
+      scale: 0.96;
+    }
+    75% {
+      scale: 1.02;
+    }
+  }
+
+  @keyframes icon-external-link-head {
+    22% {
+      translate: 1.8px -1.8px;
+    }
+    50% {
+      translate: -0.45px 0.45px;
+    }
+    75% {
+      translate: 0.2px -0.2px;
+    }
+  }
+
+  @keyframes icon-external-link-box {
+    18% {
+      translate: -0.8px 0.8px;
+    }
+    40% {
+      translate: 0.3px -0.3px;
+    }
+  }
+</style>
