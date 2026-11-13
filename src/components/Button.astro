@@ -1,0 +1,48 @@
+---
+import type { ComponentProps, HTMLAttributes } from "astro/types";
+import Icon from "./Icon.astro";
+
+type Props = HTMLAttributes<"button"> & {
+  kind: "primary" | "secondary" | "ghost";
+  label: string;
+  icon?: ComponentProps<typeof Icon>["name"];
+  iconOnly?: boolean;
+  href?: string;
+};
+
+const {
+  kind,
+  label,
+  icon,
+  iconOnly = false,
+  href,
+  class: className,
+  ...rest
+} = Astro.props;
+
+const Tag = href ? "a" : "button";
+
+const solid =
+  "rounded-button border px-[1em] py-[0.55em] text-step--1 leading-[1.2] shadow-button transition-[scale] duration-100 ease-standard motion-safe:active:scale-97";
+
+const kinds = {
+  primary: `${solid} border-transparent bg-gold font-semibold text-ink hover:bg-gold-hover`,
+  secondary: `${solid} border-line bg-card font-medium hover:bg-card-hover`,
+  ghost: `rounded-ghost text-[1rem] leading-none font-medium text-muted hover:text-accent ${iconOnly ? "size-[40px]" : "px-[12px] py-[10px]"}`,
+};
+---
+
+<Tag
+  type={href ? undefined : "button"}
+  {...rest}
+  href={href}
+  aria-label={iconOnly ? label : undefined}
+  class:list={[
+    "inline-flex cursor-pointer items-center justify-center gap-[8px]",
+    kinds[kind],
+    className,
+  ]}
+>
+  {icon && <Icon name={icon} size={kind === "ghost" ? 20 : 18} />}
+  {!iconOnly && <span>{label}</span>}
+</Tag>
